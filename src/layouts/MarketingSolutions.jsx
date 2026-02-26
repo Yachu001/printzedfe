@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MSolutionsCard from "../components/MSolutionsCard";
+import { getMarketingSolutions } from "../services/baseService";
 
 
 function MarketingSolutions() {
@@ -7,10 +8,10 @@ function MarketingSolutions() {
   const [solutions, setSolutions] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/marketing-solutions/")
-      .then(res => res.json())
-      .then(data => setSolutions(data));
-  }, []);
+  getMarketingSolutions()
+    .then(res => setSolutions(res.data))
+    .catch(err => console.log(err));
+}, []);
 
   return (
     <section className=" text-white py-10 px-6">

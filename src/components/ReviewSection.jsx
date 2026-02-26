@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react"
 import TopReviewCard from "./TopReviewCard"
 import ListReviewCard from "./ListReviewCard"
+import API from "../services/api"
 
 const ReviewSection = () => {
 
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/review/")
-      .then(res => res.json())
-      .then(data => setReviews(data))
-  }, [])
+  API.get("/api/review/")
+    .then(res => setReviews(res.data))
+    .catch(err => console.log(err));
+}, []);
 
   const topReviews = reviews.slice(0, 2)
   const listReviews = reviews.slice(2)

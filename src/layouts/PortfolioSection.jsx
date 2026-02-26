@@ -16,12 +16,14 @@ function PortfolioSection() {
       const res = await getPortfolio();
 
       // Fix image path
-     const formatted = res.data.map(item => ({
-  ...item,
-  image: item.image.startsWith("http")
-    ? item.image
-    : `http://127.0.0.1:8000${item.image}`
-}));
+     const MEDIA_URL = import.meta.env.VITE_MEDIA_URL;
+
+      const formatted = res.data.map(item => ({
+        ...item,
+        image: item.image.startsWith("http")
+          ? item.image
+          : `${MEDIA_URL}${item.image}`
+      }));
 
       setItems(formatted);
 
